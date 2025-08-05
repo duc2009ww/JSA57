@@ -1,0 +1,38 @@
+body {
+    margin: 0;
+    display: flex;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+    padding: 50px;
+  }
+  .grid-container {
+    background-color: rgb(10, 75, 241);
+    width: 100%;
+    height: 70vh;
+    transition: all 0.5s ease-in-out;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    gap: 20px;
+  }
+  .item {
+    background-color: azure;
+
+    &:nth-child(1) {
+      grid-column: span 2;
+    }
+    &:nth-child(2) {
+        grid-column: span 3;
+        grid-row: span 2;
+    }
+    &:nth-child(3) {
+        grid-column: span 3;
+    } 
+}
+.color1 {
+  background-color: aqua;
+}
+.color2 {
+  background-color: aquamarine;
+}
