@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>String</title>
+  </head>
+  <body>
+    <p id="data">
+      Why use this Lipsum and not the original? Maybe you don't want to text
+      that nobody understands and wants something funny for our office projects.
+      This is an entertaining alternative to boring words. Our colleagues will
+      laugh when they see the paragraphs.
+    </p>
+
+    <!-- add js internal -->
+    <script>
+        //lay du tu html dom
+        //document: lay toan bo code html trong web page
+        //element: la 1 the/ tag trong html
+        const data = document.getElementById("data");
+        const dataText = data.innerText;
+
+        //tach chuoi (split("..."))
+        const words = dataText.split(" ");
+        console.log("So luong tu:", words.length);
+        const sentences = dataText.split(". ")
+        console.log(sentences);
+
+      // gop chuoi
+    const newwords = words[15] + " " + words[136];
+    console.log("Tu moi:",newwords);
+    console.warn("10" + 20); //chuoi + so -> chuoi
+    console.warn(20 - "10"); //chuoi - so -> so
+
+    //template string (ES6)
+    const templateStr = `tu moi: ${words[40]} ${words[52]}`;
+    console.log(templateStr);
+
+      // dem ki tu trong chuoi ---------------------
+      console.error("So ki tu: ", dataText.length); // bao gom khoang trang,
+
+      // viet hoa/ thuong chuoi
+      //data.innerText = dataText.toLowerCase(); // viet thuong
+      data.innerText = dataText.toUpperCase(); //viet hoa
+
+      //loai bo khoang trang (dau/ duoi)
+      const newText = "                     . ." + words[34] + ".  ";
+      console.log(newText.trim());
+    </script>
+  </body>
+</html>
