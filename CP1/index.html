@@ -1,0 +1,90 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cards</title>
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+    html code -->
+
+
+
+    <!-- end html code -->
+    <!-- <script src="./js/script.js"></script>
+</body>
+</html> -->
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Memory Game</title>
+  <style>
+    .game-board {
+      display: grid;
+      grid-template-columns: repeat(4, 100px);
+      gap: 10px;
+    }
+    .card {
+      width: 100px;
+      height: 100px;
+      background: gray;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      cursor: pointer;
+    }
+    .flipped {
+      background: white;
+    }
+  </style>
+</head>
+<body>
+  <h2>Memory Game</h2>
+  <div class="game-board" id="board"></div>
+
+  <script>
+    const cards = ["🍔","🍟","🍕","🌭","🍔","🍟","🍕","🌭"];
+    // xáo trộn
+    cards.sort(() => Math.random() - 0.5);
+
+    const board = document.getElementById("board");
+    let flipped = [];
+    
+    cards.forEach((symbol, i) => {
+      const card = document.createElement("div");
+      card.classList.add("card");
+      card.dataset.symbol = symbol;
+      card.addEventListener("click", () => flip(card));
+      board.appendChild(card);
+    });
+
+    function flip(card) {
+      if (card.classList.contains("flipped") || flipped.length === 2) return;
+
+      card.textContent = card.dataset.symbol;
+      card.classList.add("flipped");
+      flipped.push(card);
+
+      if (flipped.length === 2) {
+        setTimeout(checkMatch, 800);
+      }
+    }
+
+    function checkMatch() {
+      const [c1, c2] = flipped;
+      if (c1.dataset.symbol !== c2.dataset.symbol) {
+        c1.textContent = "";
+        c1.classList.remove("flipped");
+        c2.textContent = "";
+        c2.classList.remove("flipped");
+      }
+      flipped = [];
+    }
+  </script>
+</body>
+</html>
