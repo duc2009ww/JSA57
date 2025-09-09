@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Homework 5 - Checkpoint 1</title>
+</head>
+<body>
+  <h2>Enter Your Information</h2>
+  <form id="userForm">
+    <label for="name">Name:</label>
+    <input type="text" id="name" required><br><br>
+
+    <label for="email">Email:</label>
+    <input type="email" id="email" required><br><br>
+
+    <button type="submit">Submit</button>
+  </form>
+
+  <h2>Stored Information:</h2>
+  <p id="storedName"></p>
+  <p id="storedEmail"></p>
+
+  <script>
+    const form = document.getElementById("userForm");
+    const storedName = document.getElementById("storedName");
+    const storedEmail = document.getElementById("storedEmail");
+
+    // Khi load trang, hiển thị dữ liệu đã lưu (nếu có)
+    window.onload = function() {
+      if (localStorage.getItem("name") && localStorage.getItem("email")) {
+        storedName.textContent = "Name: " + localStorage.getItem("name");
+        storedEmail.textContent = "Email: " + localStorage.getItem("email");
+      }
+    }
+
+    // Xử lý submit form
+    form.addEventListener("submit", function(e) {
+      e.preventDefault(); // chặn load lại trang
+
+      const name = document.getElementById("name").value;
+      const email = document.getElementById("email").value;
+
+      // Lưu vào localStorage
+      localStorage.setItem("name", name);
+      localStorage.setItem("email", email);
+
+      // Hiển thị ra màn hình
+      storedName.textContent = "Name: " + name;
+      storedEmail.textContent = "Email: " + email;
+
+      // Reset form
+      form.reset();
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>User Profile</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+    .profile {
+      margin-top: 20px;
+      padding: 15px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      width: 300px;
+    }
+    .profile img {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+  </style>
+</head>
+<body>
+  <h2>Create Your Profile</h2>
+  <form id="profileForm">
+    <label for="name">Name:</label><br>
+    <input type="text" id="name" required><br><br>
+
+    <label for="email">Email:</label><br>
+    <input type="email" id="email" required><br><br>
+
+    <label for="phone">Phone:</label><br>
+    <input type="tel" id="phone" required><br><br>
+
+    <label for="address">Address:</label><br>
+    <input type="text" id="address" required><br><br>
+
+    <label for="avatar">Avatar URL:</label><br>
+    <input type="url" id="avatar" placeholder="http://..."><br><br>
+
+    <button type="submit">Save Profile</button>
+  </form>
+
+  <div class="profile" id="profileDisplay" style="display:none;">
+    <h3>Your Profile</h3>
+    <img id="profileAvatar" src="" alt="Avatar"><br><br>
+    <p id="profileName"></p>
+    <p id="profileEmail"></p>
+    <p id="profilePhone"></p>
+    <p id="profileAddress"></p>
+  </div>
+
+  <script>
+    const form = document.getElementById("profileForm");
+    const display = document.getElementById("profileDisplay");
+
+    const profileName = document.getElementById("profileName");
+    const profileEmail = document.getElementById("profileEmail");
+    const profilePhone = document.getElementById("profilePhone");
+    const profileAddress = document.getElementById("profileAddress");
+    const profileAvatar = document.getElementById("profileAvatar");
+
+    // Hiển thị dữ liệu từ localStorage khi load lại trang
+    window.onload = function() {
+      const savedProfile = JSON.parse(localStorage.getItem("profile"));
+      if (savedProfile) {
+        showProfile(savedProfile);
+      }
+    };
+
+    // Xử lý submit form
+    form.addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      const profile = {
+        name: document.getElementById("name").value,
+        email: document.getElementById("email").value,
+        phone: document.getElementById("phone").value,
+        address: document.getElementById("address").value,
+        avatar: document.getElementById("avatar").value
+      };
+
+      // Lưu vào localStorage
+      localStorage.setItem("profile", JSON.stringify(profile));
+
+      // Hiển thị
+      showProfile(profile);
+
+      // Reset form
+      form.reset();
+    });
+
+    function showProfile(profile) {
+      profileName.textContent = "Name: " + profile.name;
+      profileEmail.textContent = "Email: " + profile.email;
+      profilePhone.textContent = "Phone: " + profile.phone;
+      profileAddress.textContent = "Address: " + profile.address;
+
+      display.style.display = "block";
+
+    }
+    </script>
+    </body>
+</html>
