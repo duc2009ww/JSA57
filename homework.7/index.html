@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MindX Cinema Login</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      background: url('https://assets.nflxext.com/ffe/siteui/vlv3/3f96e5df-bd5a-4eeb-b2c1-f72f2e8478f0/0d4c1e63-1838-4a69-aec1-4d2d8d7d53e7/VN-en-20230911-popsignuptwoweeks-perspective_alpha_website_large.jpg') no-repeat center center fixed;
+      background-size: cover;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .form-box {
+      background: rgba(0,0,0,0.8);
+      padding: 40px;
+      border-radius: 10px;
+      width: 320px;
+      text-align: center;
+      color: white;
+    }
+
+    .form-box h2 {
+      margin-bottom: 20px;
+    }
+
+    .form-box input {
+      width: 100%;
+      padding: 10px;
+      margin: 8px 0;
+      border: none;
+      border-radius: 5px;
+    }
+
+    .form-box button {
+      width: 100%;
+      padding: 10px;
+      margin-top: 15px;
+      background: #e50914;
+      border: none;
+      border-radius: 5px;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .form-box button:hover {
+      background: #f40612;
+    }
+
+    .toggle {
+      margin-top: 15px;
+      font-size: 14px;
+    }
+
+    .toggle a {
+      color: #e50914;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .error {
+      color: #ff4c4c;
+      font-size: 13px;
+      margin-bottom: 5px;
+      text-align: left;
+    }
+  </style>
+</head>
+<body>
+  <!-- Form đăng nhập -->
+  <div class="form-box" id="loginForm">
+    <h2>Sign In</h2>
+    <form onsubmit="return validateLogin()">
+      <input type="text" id="loginUsername" placeholder="Username" required>
+      <input type="password" id="loginPassword" placeholder="Password" required>
+      <p class="error" id="loginError"></p>
+      <button type="submit">Login</button>
+    </form>
+    <div class="toggle">
+      New here? <a onclick="showSignup()">Sign up now</a>
+    </div>
+  </div>
+
+  <!-- Form đăng ký -->
+  <div class="form-box hidden" id="signupForm">
+    <h2>Sign Up</h2>
+    <form onsubmit="return validateSignup()">
+      <input type="text" id="signupUsername" placeholder="Username" required>
+      <input type="email" id="signupEmail" placeholder="Email" required>
+      <input type="password" id="signupPassword" placeholder="Password" required>
+      <input type="password" id="signupConfirm" placeholder="Confirm Password" required>
+      <p class="error" id="signupError"></p>
+      <button type="submit">Register</button>
+    </form>
+    <div class="toggle">
+      Already have an account? <a onclick="showLogin()">Sign in</a>
+    </div>
+  </div>
+
+  <script>
+    function showSignup() {
+      document.getElementById("loginForm").classList.add("hidden");
+document.getElementById("signupForm").classList.remove("hidden");
+    }
+
+
+    // Validate Login
+    function validateLogin() {
+      const username = document.getElementById("loginUsername").value;
+      const password = document.getElementById("loginPassword").value;
+      const error = document.getElementById("loginError");
+
+      error.textContent = "";
+
+      if (username.length < 6 || username.length > 18) {
+        error.textContent = "Username phải từ 6 đến 18 ký tự.";
+        return false;
+      }
+
+      if (password.length < 8 || password.length > 20) {
+        error.textContent = "Password phải từ 8 đến 20 ký tự.";
+        return false;
+      }
+
+      alert("Login thành công!");
+      return true;
+    }
+
+    // Validate Signup
+    function validateSignup() {
+      const username = document.getElementById("signupUsername").value;
+      const email = document.getElementById("signupEmail").value;
+      const password = document.getElementById("signupPassword").value;
+      const confirm = document.getElementById("signupConfirm").value;
+      const error = document.getElementById("signupError");
+
+      error.textContent = "";
+
+      if (username.length < 6 || username.length > 18) {
+        error.textContent = "Username phải từ 6 đến 18 ký tự.";
+        return false;
+      }
+
+      const emailPattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
+      if (!email.match(emailPattern)) {
+        error.textContent = "Email không hợp lệ.";
+        return false;
+      }
+
+      if (password.length < 8 || password.length > 20) {
+        error.textContent = "Password phải từ 8 đến 20 ký tự.";
+        return false;
+      }
+
+      if (password !== confirm) {
+        error.textContent = "Confirm Password không trùng khớp.";
+        return false;
+      }
+
+      alert("Đăng ký thành công!");
+      return true;
+    }
+  </script>
+</body>
+</html>

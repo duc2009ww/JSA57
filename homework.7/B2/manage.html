@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Quản lý phim</title>
+</head>
+<body>
+  <h1>Quản lý phim</h1>
+
+  <form id="movieForm">
+    <input type="text" id="title" placeholder="Tên phim" required>
+    <input type="text" id="genre" placeholder="Thể loại" required>
+    <input type="text" id="year" placeholder="Năm" required>
+    <button type="submit">Thêm phim</button>
+  </form>
+
+  <h2>Danh sách phim</h2>
+  <ul id="movieList"></ul>
+
+  <script>
+    let movies = JSON.parse(localStorage.getItem("movies")) || [];
+
+    function renderMovies() {
+      const list = document.getElementById("movieList");
+      list.innerHTML = "";
+      movies.forEach((m, i) => {
+        let li = document.createElement("li");
+        li.innerHTML = `${m.title} (${m.year}) - ${m.genre} 
+          <button onclick="editMovie(${i})">Sửa</button> 
+          <button onclick="deleteMovie(${i})">Xóa</button>`;
+        list.appendChild(li);
+      });
+    }
+
+    document.getElementById("movieForm").onsubmit = function(e) {
+      e.preventDefault();
+      const title = document.getElementById("title").value;
+      const genre = document.getElementById("genre").value;
+      const year = document.getElementById("year").value;
+
+      movies.push({ title, genre, year });
+      localStorage.setItem("movies", JSON.stringify(movies));
+      renderMovies();
+      e.target.reset();
+    };
+
+    function deleteMovie(i) {
+      movies.splice(i, 1);
+      localStorage.setItem("movies", JSON.stringify(movies));
+      renderMovies();
+    }
+
+    function editMovie(i) {
+      const newTitle = prompt("Nhập tên mới:", movies[i].title);
+      const newGenre = prompt("Nhập thể loại mới:", movies[i].genre);
+      const newYear = prompt("Nhập năm mới:", movies[i].year);
+
+      movies[i] = { title: newTitle, genre: newGenre, year: newYear };
+      localStorage.setItem("movies", JSON.stringify(movies));
+      renderMovies();
+    }
+
+    renderMovies();
+  </script>
+</body>
+</html>

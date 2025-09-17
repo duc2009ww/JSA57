@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Chi tiết phim</title>
+</head>
+<body>
+  <div id="movieDetail"></div>
+
+  <script>
+    const movie = JSON.parse(localStorage.getItem("selectedMovie"));
+    if (movie) {
+      document.getElementById("movieDetail").innerHTML = `
+        <h2>${movie.title}</h2>
+        <img src="https://image.tmdb.org/t/p/w300${movie.poster_path}">
+        <p>${movie.overview}</p>
+      `;
+    } else {
+      document.getElementById("movieDetail").innerHTML = "<p>Không tìm thấy phim!</p>";
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>MindX Cinema - Home</title>
+</head>
+<body>
+  <h1>Danh sách phim</h1>
+  <div id="movieList"></div>
+
+  <script>
+    async function loadMovies() {
+      const apiKey = "YOUR_TMDB_API_KEY"; // thay bằng API key của bạn
+      const res = await fetch(`https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&language=vi-VN`);
+      const data = await res.json();
+
+      let container = document.getElementById("movieList");
+      container.innerHTML = "";
+
+      data.results.forEach(movie => {
+        let div = document.createElement("div");
+        div.innerHTML = `<h3>${movie.title}</h3>
+                         <img src="https://image.tmdb.org/t/p/w200${movie.poster_path}">
+                         <p>${movie.overview}</p>`;
+        div.style.cursor = "pointer";
+
+        // 👉 Sự kiện click xem chi tiết
+        div.onclick = () => {
+          localStorage.setItem("selectedMovie", JSON.stringify(movie));
+          window.location.href = "movie.html";
+        };
+
+        container.appendChild(div);
+      });
+    }
+
+    loadMovies();
+  </script>
+</body>
+</html>
