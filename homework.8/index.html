@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Form Validation</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 30px;
+    }
+    form {
+      width: 300px;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+    input {
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    .error {
+      color: red;
+      font-size: 13px;
+    }
+    button {
+      padding: 10px;
+      background: #28a745;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    button:disabled {
+      background: gray;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Form Validation</h2>
+  <form id="registerForm">
+    <div>
+      <input type="text" id="username" placeholder="Username">
+      <div class="error" id="usernameError"></div>
+    </div>
+    <div>
+      <input type="email" id="email" placeholder="Email">
+      <div class="error" id="emailError"></div>
+    </div>
+    <div>
+      <input type="password" id="password" placeholder="Password">
+      <div class="error" id="passwordError"></div>
+    </div>
+    <div>
+      <input type="text" id="phone" placeholder="Phone Number">
+      <div class="error" id="phoneError"></div>
+    </div>
+    <button type="submit">Đăng ký</button>
+  </form>
+
+  <script>
+    const form = document.getElementById("registerForm");
+
+    form.addEventListener("submit", function(e) {
+      e.preventDefault();
+      let valid = true;
+
+      // Reset lỗi
+      document.querySelectorAll(".error").forEach(el => el.innerText = "");
+
+      const username = document.getElementById("username").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const password = document.getElementById("password").value.trim();
+      const phone = document.getElementById("phone").value.trim();
+
+      // Username
+      if (!username) {
+        document.getElementById("usernameError").innerText = "Username không được bỏ trống";
+        valid = false;
+      }
+
+      // Email
+      const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!email) {
+        document.getElementById("emailError").innerText = "Email không được bỏ trống";
+        valid = false;
+      } else if (!emailPattern.test(email)) {
+        document.getElementById("emailError").innerText = "Email không hợp lệ";
+        valid = false;
+      }
+
+      // Password
+      const passPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/;
+      if (!password) {
+        document.getElementById("passwordError").innerText = "Password không được bỏ trống";
+        valid = false;
+      } else if (!passPattern.test(password)) {
+        document.getElementById("passwordError").innerText =
+          "Password phải ≥ 8 ký tự, có chữ hoa, chữ thường, số, ký tự đặc biệt";
+        valid = false;
+      }
+
+      // Phone
+      const phonePattern = /^[0-9]{9,11}$/; // cho phép 9-11 số
+      if (!phone) {
+        document.getElementById("phoneError").innerText = "Số điện thoại không được bỏ trống";
+        valid = false;
+      } else if (!phonePattern.test(phone)) {
+        document.getElementById("phoneError").innerText = "Số điện thoại không hợp lệ";
+        valid = false;
+      }
+
+      if (valid) {
+        alert("Đăng ký thành công!");
+        form.reset();
+      }
+    });
+  </script>
+</body>
+</html>
